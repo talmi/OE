@@ -13,12 +13,13 @@ This experiment uses the Stratum/BMv2 switch in a Mininet environment. gNMI is u
 
 The following topology is emulated in Mininet:
 
-               ^
-               |gNMI
-+------+   +---+---+   +------+
-| h1a  |---|Stratum|---| h1b  |
-|(host)|   |switch |   |(host)|
-+------+   +-------+   +------+
+<!-- language: lang-none -->
+                   ^
+                   |gNMI
+    +------+   +---+---+   +------+
+    | h1a  |---|Stratum|---| h1b  |
+    |(host)|   |switch |   |(host)|
+    +------+   +-------+   +------+
 
 Data traffic is forwarded between the hosts h1a and h1b, while the Stratum switch counters are exported using gNMI to the localhost (which is logically external to the Mininet topology). The overhead of the gNMI exported information is measured and analyzed as a function of the exporting period.
 
@@ -104,10 +105,11 @@ This experiment uses an open source implementation of IEEE 802.1ag, running Cont
 
 The experiment uses the default Mininet topology, where two hosts are connected through a switch.
 
-+------+   +------+   +------+
-|  h1  |---|switch|---|  h2  |
-|(host)|   |      |   |(host)|
-+------+   +------+   +------+
+<!-- language: lang-none -->
+    +------+   +------+   +------+
+    |  h1  |---|switch|---|  h2  |
+    |(host)|   |      |   |(host)|
+    +------+   +------+   +------+
 
 The host h1 periodically sends CCMs, and this experiment measures the data rate impact of the CCMs.
 
@@ -166,13 +168,14 @@ The experiment uses the IOAM setup of https://github.com/IurmanJ/kernel_ipv6_ioa
 
 Specifically, five Linux Containers (LXC) are used to emulate two hosts and three switches.
 
-+------+   +------+   +-------+   +-------+   +------+
-|Alpha |---|Athos |---|Porthos|---|Aramis |---| Beta |
-|(host)|   |      |   |       |   |       |   |(host)|
-+------+   +------+   +-------+   +-------+   +------+
-            IOAM         IOAM      IOAM
-        encapsulating   transit    decapsulating
-            switch      switch     switch
+<!-- language: lang-none -->
+    +------+   +------+   +-------+   +-------+   +------+
+    |Alpha |---|Athos |---|Porthos|---|Aramis |---| Beta |
+    |(host)|   |      |   |       |   |       |   |(host)|
+    +------+   +------+   +-------+   +-------+   +------+
+                IOAM         IOAM      IOAM
+            encapsulating   transit    decapsulating
+                switch      switch     switch
 			
 In the experiment traffic is sent between Alpha and Beta using Iperf. The traffic is IPv6 UDP packets with a constant length of 360 bytes (including the L2 and L3 headers) - which fits the mean packet length in IMIX. The IOAM encapsulation is pushed by Athos, and each of the switches (Athos, Porthos, Aramis) pushes its own IOAM data onto packets. Finally, Aramis removes the IOAM encapsulation. Various experiments can be run using the scripts in the IOAM folder. The experiments compare the performance (data rate and loss rate) with and without OAM, and for various IOAM sampling ratio values (the sampling ratio determines the fraction of data traffic that is encapsulated with IOAM).
 			
